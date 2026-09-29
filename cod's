@@ -1,8 +1,9 @@
 // Обменник валют 
 float RublesInWallet; //Рубли в кошельке
 float DollarsInWallet; //Доллары в кошкльке
+float EuroInWallet; //евро в кошельке
 
-int RublesToUsd = 82, UsdToRubles = 84;
+int RublesToUsd = 82, UsdToRubles = 84, EuroToRub = 96, EuroToUsd = 1;
 
 float num; // Переменная в которой хранится сумма которую хочет обменять п ользователь 
 
@@ -15,9 +16,14 @@ RublesInWallet = float.Parse(Console.ReadLine());
 Console.Write("Введите баланс Долларов : ");
 DollarsInWallet = float.Parse(Console.ReadLine());
 
+Console.Write("Введите баланс евро : ");
+EuroInWallet = float.Parse(Console.ReadLine());
+
 Console.WriteLine("\nВыберите необходимую операцию : ");
 Console.WriteLine("\n1 - Обменять рубли на доллары ");
 Console.WriteLine("2 - Обменять доллары на рубли");
+Console.WriteLine("3 - Обменять евро на рубли");
+Console.WriteLine("4 - Обменять евро на доллары");
 Console.Write("Ваш выбор : ");
 DiseredOperation = Console.ReadLine();
 
@@ -51,12 +57,39 @@ switch (DiseredOperation)
             Console.WriteLine("Недопустимое количество Долларов");
         }
         break;
+    case "3":
+        Console.WriteLine("\nОбмен евро на рубли ");
+        Console.Write("\n Сколько вы хотите обменять : ");
+        num = float.Parse(Console.ReadLine());
+        if (EuroInWallet >= num)
+        {
+            EuroInWallet -= num;
+            RublesInWallet += num * EuroToRub;
+        }
+        else
+        {
+            Console.WriteLine("Недопустимое число евро");
+        }
+        break;
+    case "4":
+        Console.WriteLine("\nОбмен евро на доллары ");
+        Console.Write("\n Сколько вы хотите обменять : ");
+        num = float.Parse(Console.ReadLine());
+        if (EuroInWallet >= num)
+        {
+            EuroInWallet -= num;
+            DollarsInWallet += num * EuroToUsd;
+        }
+        else
+        {
+            Console.WriteLine("Недопустимое число евро");
+        }
+        break;
     default:
         Console.WriteLine("Такой операции не существует");
         break;
 }
-Console.WriteLine($"Ваш баланс {RublesInWallet} рублей, " + $"{DollarsInWallet} долларов");
-
+Console.WriteLine($"Ваш баланс {RublesInWallet} рублей, " + $"{DollarsInWallet} долларов, " + $"{EuroInWallet} Евро");
 
 -----------------------------------------------------------------------------------------------------
 // проверка пароля
