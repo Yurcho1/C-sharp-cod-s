@@ -1,0 +1,152 @@
+// Обменник валют 
+float RublesInWallet; //Рубли в кошельке
+float DollarsInWallet; //Доллары в кошкльке
+
+int RublesToUsd = 82, UsdToRubles = 84;
+
+float num; // Переменная в которой хранится сумма которую хочет обменять п ользователь 
+
+string DiseredOperation; //Желаемая операция 
+
+Console.WriteLine("Добро пожаловать в обменник валют!\n");
+Console.Write("Введите баланс рублей : ");
+RublesInWallet = float.Parse(Console.ReadLine());
+
+Console.Write("Введите баланс Долларов : ");
+DollarsInWallet = float.Parse(Console.ReadLine());
+
+Console.WriteLine("\nВыберите необходимую операцию : ");
+Console.WriteLine("\n1 - Обменять рубли на доллары ");
+Console.WriteLine("2 - Обменять доллары на рубли");
+Console.Write("Ваш выбор : ");
+DiseredOperation = Console.ReadLine();
+
+switch (DiseredOperation)
+{
+    case "1":
+        Console.Write("\nОбмен рублей на доллары ");
+        Console.Write("\nСколько вы хотите обменять : ");
+        num = float.Parse(Console.ReadLine());
+        if (RublesInWallet >= num)
+        {
+            RublesInWallet -= num;
+            DollarsInWallet += num / RublesToUsd;
+        }
+        else
+        {
+            Console.WriteLine("Недопустимое количество рублей");
+        }
+        break;
+    case "2":
+        Console.WriteLine("\nОбмен долларов на рубли ");
+        Console.WriteLine("\nСколько вы хотите обменять : ");
+        num = float.Parse(Console.ReadLine());
+        if (DollarsInWallet >= num)
+        {
+            DollarsInWallet -= num;
+            RublesInWallet += num * UsdToRubles;
+        }
+        else
+        {
+            Console.WriteLine("Недопустимое количество Долларов");
+        }
+        break;
+    default:
+        Console.WriteLine("Такой операции не существует");
+        break;
+}
+Console.WriteLine($"Ваш баланс {RublesInWallet} рублей, " + $"{DollarsInWallet} долларов");
+
+
+-----------------------------------------------------------------------------------------------------
+// проверка пароля
+int Try = 5; // попытки
+
+string password = "ravil_09"; // пароль
+
+string userinput;
+
+for (int i = 0; i < Try; i++)
+{
+    Console.Write("Введите пароль : ");
+    userinput = Console.ReadLine();
+    if (userinput == password)
+    {
+        Console.WriteLine("Доступ разрешен!");
+        break;
+    }
+    else
+    {
+        Console.WriteLine($"\nДоступ запрещен, у вас осталось {Try - i - 1} попыток");
+    }
+}
+
+
+
+--------------------------------------------------------------------------------------------------------
+//Расчет будущей суммы под процент годовых
+float money; //Ввод суммы пользователя
+
+int years; //Длина вклада
+
+float procent;
+
+float summ;
+
+Console.Write("Введите количесвто денег, внесенных на вклад : ");
+money = float.Parse(Console.ReadLine());
+Console.Write("\nНа сколько лет открыт вклад : ");
+years = int.Parse(Console.ReadLine());
+Console.Write("\nПод какой процент : ");
+procent = float.Parse(Console.ReadLine());
+
+for (int i = 1; i <= years; i++)
+{
+    summ = money / 100 * procent;
+    money += summ;
+    Console.WriteLine($"За {i} году у вас : {summ}");
+    Console.ReadKey();
+}
+
+------------------------------------------------------------------------------------------------------------
+
+int PlayerHealth = 70;
+int PlayerDamage = 20;
+int PlayerArmor = 7;
+int PlayerCritChance = 22;
+
+int EnemyHealht = 62;
+int EnemyDamage = 19;
+int EnemyArmor = 9;
+int EnemyCritChance = 27;
+
+Console.WriteLine("--- БИТВА НАЧИНАЕТСЯ ---");
+Console.WriteLine($"Игрок : {PlayerHealth} HP, Броня {PlayerArmor}");
+Console.WriteLine($"Враг : {EnemyHealht} HP, Броня {EnemyArmor}\n");
+
+while (PlayerHealth > 0 && EnemyHealht > 0)
+{
+    int TotalDamagePlayer = Math.Max(0, EnemyDamage - PlayerArmor);
+    int TotalDamageEnemy = Math.Max(0, PlayerDamage - EnemyArmor);
+
+    PlayerHealth -= TotalDamagePlayer;
+    EnemyHealht -= TotalDamageEnemy;
+    Console.WriteLine($"Игрок получил {TotalDamagePlayer} урона, Осталось : {PlayerHealth} HP");
+    Console.WriteLine($"Враг получил {TotalDamageEnemy} урона, Осталось : {EnemyHealht} HP");
+}
+
+Console.WriteLine("\n--- ИТОГ БОЯ ---\n");
+
+if (PlayerHealth <= 0 && EnemyHealht <= 0)
+{
+    Console.WriteLine("Ничья");
+}
+
+else if (PlayerHealth >= 0)
+{
+    Console.WriteLine($"Победил игрок, осталось здоровья {PlayerHealth}");
+}
+else if (EnemyHealht >= 0)
+{
+    Console.WriteLine($"Победил враг, осталось здоовья {EnemyHealht}");
+}
