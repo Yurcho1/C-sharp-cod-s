@@ -3,7 +3,7 @@ float RublesInWallet; //Рубли в кошельке
 float DollarsInWallet; //Доллары в кошкльке
 float EuroInWallet; //евро в кошельке
 
-int RublesToUsd = 82, UsdToRubles = 84, EuroToRub = 96, EuroToUsd = 1;
+float RublesToUsd = 86, UsdToRubles = 83.38f, EuroToRub = 94.39f, EuroToUsd = 1.13f, RublesToEuro = 0.011f, UsdToEuro = 0.88f;
 
 float num; // Переменная в которой хранится сумма которую хочет обменять п ользователь 
 
@@ -22,9 +22,11 @@ EuroInWallet = float.Parse(Console.ReadLine());
 Console.WriteLine("\nВыберите необходимую операцию : ");
 Console.WriteLine("\n1 - Обменять рубли на доллары ");
 Console.WriteLine("2 - Обменять доллары на рубли");
-Console.WriteLine("3 - Обменять евро на рубли");
+Console.WriteLine("\n3 - Обменять евро на рубли");
 Console.WriteLine("4 - Обменять евро на доллары");
-Console.Write("Ваш выбор : ");
+Console.WriteLine("\n5 - Обменять рубли на евро");
+Console.WriteLine("6 - Обменять доллары на евро");
+Console.Write("\nВаш выбор : ");
 DiseredOperation = Console.ReadLine();
 
 switch (DiseredOperation)
@@ -73,7 +75,7 @@ switch (DiseredOperation)
         break;
     case "4":
         Console.WriteLine("\nОбмен евро на доллары ");
-        Console.Write("\n Сколько вы хотите обменять : ");
+        Console.Write("\nСколько вы хотите обменять : ");
         num = float.Parse(Console.ReadLine());
         if (EuroInWallet >= num)
         {
@@ -85,11 +87,55 @@ switch (DiseredOperation)
             Console.WriteLine("Недопустимое число евро");
         }
         break;
+    case "5":
+        Console.WriteLine("\nОбмен рублей на евро ");
+        Console.Write("\nСколько вы хотите обменять : ");
+        num = float.Parse(Console.ReadLine());
+        if (RublesInWallet >= num)
+        {
+            RublesInWallet -= num;
+            EuroInWallet += num * RublesToEuro;
+        }
+        else
+        {
+            Console.WriteLine("Недопустимое число");
+        }
+        break;
+    case "6":
+        Console.WriteLine("\nОбмен доллара на евро ");
+        Console.Write("\nСколько вы хотите обменять : ");
+        num = float.Parse(Console.ReadLine());
+        if (DollarsInWallet >= num)
+        {
+            DollarsInWallet -= num;
+            EuroInWallet += num * UsdToEuro;
+        }
+        else
+        {
+            Console.WriteLine("Недопустимое число");
+        }
+        break;
     default:
         Console.WriteLine("Такой операции не существует");
         break;
 }
-Console.WriteLine($"Ваш баланс {RublesInWallet} рублей, " + $"{DollarsInWallet} долларов, " + $"{EuroInWallet} Евро");
+Console.Write("Ваш баланс ");
+Console.ForegroundColor = ConsoleColor.Green;
+Console.Write(RublesInWallet);
+Console.ResetColor();
+Console.Write(" Рублей, ");
+
+Console.Write("Ваш баланс ");
+Console.ForegroundColor = ConsoleColor.Green;
+Console.Write(DollarsInWallet);
+Console.ResetColor();
+Console.Write(" Долларов, ");
+
+Console.Write("Ваш баланс ");
+Console.ForegroundColor = ConsoleColor.Green;
+Console.Write(EuroInWallet);
+Console.ResetColor();
+Console.Write(" Евро");
 
 -----------------------------------------------------------------------------------------------------
 // проверка пароля
