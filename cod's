@@ -189,13 +189,14 @@ for (int i = 1; i <= years; i++)
 
 ------------------------------------------------------------------------------------------------------------
 // бой игрока в врага
-int PlayerHealth = 70;
-int PlayerDamage = 20;
+Random random = new Random();
+int PlayerHealth = random.Next(58, 87);
+int PlayerDamage = random.Next(17, 29);
 int PlayerArmor = 7;
 int PlayerCritChance = 22;
 
-int EnemyHealht = 62;
-int EnemyDamage = 19;
+int EnemyHealht = random.Next(50, 82);
+int EnemyDamage = random.Next(15, 26);
 int EnemyArmor = 9;
 int EnemyCritChance = 27;
 
@@ -203,15 +204,35 @@ Console.WriteLine("--- БИТВА НАЧИНАЕТСЯ ---");
 Console.WriteLine($"Игрок : {PlayerHealth} HP, Броня {PlayerArmor}");
 Console.WriteLine($"Враг : {EnemyHealht} HP, Броня {EnemyArmor}\n");
 
+
 while (PlayerHealth > 0 && EnemyHealht > 0)
 {
-    int TotalDamagePlayer = Math.Max(0, EnemyDamage - PlayerArmor);
-    int TotalDamageEnemy = Math.Max(0, PlayerDamage - EnemyArmor);
+    int cuurentPlayerDamage = PlayerDamage;
+    int currentEnemyDamage = EnemyDamage;
+
+if (random.Next(1, 101) <= PlayerCritChance)
+    {
+        cuurentPlayerDamage *= 2;
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("КРИТ! Игрока");
+        Console.ResetColor();
+    }
+ if (random.Next(1, 101) <= EnemyCritChance)
+    {
+        currentEnemyDamage *= 2;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("КРИТ! Врага");
+        Console.ResetColor();
+    }
+
+    int TotalDamagePlayer = Math.Max(0, currentEnemyDamage - PlayerArmor);
+    int TotalDamageEnemy = Math.Max(0, cuurentPlayerDamage - EnemyArmor);
 
     PlayerHealth -= TotalDamagePlayer;
     EnemyHealht -= TotalDamageEnemy;
     Console.WriteLine($"Игрок получил {TotalDamagePlayer} урона, Осталось : {PlayerHealth} HP");
     Console.WriteLine($"Враг получил {TotalDamageEnemy} урона, Осталось : {EnemyHealht} HP");
+    Console.ReadKey();
 }
 
 Console.WriteLine("\n--- ИТОГ БОЯ ---\n");
@@ -221,11 +242,12 @@ if (PlayerHealth <= 0 && EnemyHealht <= 0)
     Console.WriteLine("Ничья");
 }
 
-else if (PlayerHealth >= 0)
+else if (PlayerHealth > 0)
 {
     Console.WriteLine($"Победил игрок, осталось здоровья {PlayerHealth}");
 }
-else if (EnemyHealht >= 0)
+else if (EnemyHealht > 0)
 {
     Console.WriteLine($"Победил враг, осталось здоовья {EnemyHealht}");
 }
+Console.ReadKey();
