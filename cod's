@@ -251,3 +251,29 @@ else if (EnemyHealht > 0)
     Console.WriteLine($"Победил враг, осталось здоовья {EnemyHealht}");
 }
 Console.ReadKey();
+------------------------------------------------------------------------------------------------------
+int[] sectors = { 6, 28, 15, 15, 17 };
+
+bool IsOpen = true;
+
+Console.WriteLine("Добро пожаловать на регистрацию рейса\n");
+
+while (IsOpen)
+{
+    for (int i = 0; i < sectors.Length; i++)
+    {
+        Console.WriteLine($"В секторе {i + 1} свободно {sectors[i]} мест");
+    }
+    Console.WriteLine("\n1 - Забронировать места \n2 - Выйти с программы");
+    Console.Write("\nВыберите нужный сектор : ");
+    int num = int.Parse(Console.ReadLine());
+    switch(num)
+    {
+        case 2:
+            IsOpen = false;
+            break;
+    }
+    Console.ReadKey();
+    Console.Clear();
+}
+TODO : Дописать!!!
